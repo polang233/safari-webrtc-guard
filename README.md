@@ -1,4 +1,4 @@
-# Safari WebRTC Guard
+# WebRTC Guard
 
 在获得网站访问权限的 Safari 网页中，阻止创建 WebRTC 连接，减少网页通过 ICE/STUN 获取地址的机会。
 
@@ -8,10 +8,10 @@
 
 推荐使用当前 Safari；开发时验证的版本为 **Safari 27.0.1**。Apple 现在支持直接加载扩展目录或 ZIP，无需 Xcode 和付费开发者账号。较旧 Safari 如果没有“添加临时扩展”按钮，参见下面的 Xcode 路径。
 
-1. 从本仓库的 Releases 下载 `safari-webrtc-guard-0.1.0.zip`，或下载源码并找到 `extension` 文件夹。
+1. 下载本仓库 main 分支源码并找到 `extension` 文件夹。已有 v0.1.0 Release 是改名前的历史版本；后续打包文件使用 `webrtc-guard-版本号.zip`。
 2. Safari → 设置 → 高级 → 勾选“显示网页开发者功能”。
 3. 设置 → 开发者 → “添加临时扩展…”（Add Temporary Extension），选择 ZIP 或 `extension` 文件夹。根据系统提示，由你确认允许未签名扩展；不要向项目作者提供系统密码。
-4. 在设置 → 扩展中启用 **Safari WebRTC Guard**，返回要测试的网页，点击工具栏的扩展拼图按钮，选择“允许1天”或“在此网站上始终允许”。希望应用于日常浏览时，再按需要授权全部网站。
+4. 在设置 → 扩展中启用 **WebRTC Guard**，返回要测试的网页，点击工具栏的扩展拼图按钮，选择“允许1天”或“在此网站上始终允许”。希望应用于日常浏览时，再按需要授权全部网站。
 5. **授权后重新加载网页**；现有页面和连接不保证已受保护。
 
 临时扩展在 **退出 Safari 或 24 小时后**移除。“允许未签名扩展”也会在退出 Safari 后重置。重新打开浏览器后需要重新加载，不能把这种安装方式当作持续保护。
@@ -72,7 +72,11 @@ python3 scripts/test-webkit.py
 sh scripts/build-macos.sh
 ```
 
-脚本生成 `native` 下的工程，并构建未签名的 macOS 容器。开发时也可用 Xcode 打开生成的工程并运行容器，然后按 Apple 文档允许未签名扩展、启用扩展及网站权限。工程生成目录已存在时，先保留自己所做的原生修改；不要直接覆盖。当前 Xcode 打包工具对 `world`、`match_about_blank`、`match_origin_as_fallback` 发出兼容性警告；实际本机 WebKit 运行时已验证这些场景，其他版本须实测。
+脚本构建仓库中的 `native/WebRTC Guard/WebRTC Guard.xcodeproj`，得到未签名的 macOS 容器。直接用 Xcode 打开该工程，选择 **WebRTC Guard → My Mac**，即可构建、运行和修改容器；原生代码及共享 Scheme 已纳入版本管理。扩展目标的 Resources 直接引用仓库 `extension` 目录，不需要复制 JavaScript。
+
+现有 Bundle Identifier 保留原值，以维持安装身份；显示名称和产品名称统一为 WebRTC Guard。GitHub 仓库仍叫 `safari-webrtc-guard`。当前实现已验证 Safari，其他浏览器的适配与验证将在后续开展。
+
+首次生成工程时，Xcode 打包工具对 `world`、`match_about_blank`、`match_origin_as_fallback` 发出兼容性警告；实际本机 WebKit 运行时已验证这些场景，其他版本须实测。
 
 后续 App Store 发布需要 Apple Developer Program、配置签名、正式图标与容器界面、隐私信息，并完成 Safari 实机兼容性测试及审核。详见 [Apple 打包说明](https://developer.apple.com/documentation/safariservices/packaging-a-web-extension-for-safari)与[分发说明](https://developer.apple.com/documentation/safariservices/distributing-your-safari-web-extension)。
 

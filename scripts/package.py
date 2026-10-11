@@ -6,7 +6,7 @@ from zipfile import ZipFile, ZIP_DEFLATED
 
 root = Path(__file__).resolve().parent.parent
 version = json.loads((root / "extension/manifest.json").read_text())["version"]
-destination = root / "dist" / f"safari-webrtc-guard-{version}.zip"
+destination = root / "dist" / f"webrtc-guard-{version}.zip"
 destination.parent.mkdir(exist_ok=True)
 with ZipFile(destination, "w", ZIP_DEFLATED) as archive:
     for name in ("manifest.json", "guard.js"):

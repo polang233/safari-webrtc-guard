@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Safari WebRTC Guard",
+  "name": "WebRTC Guard",
   "version": "0.1.0",
   "description": "阻止已授权网页创建 WebRTC 连接。实验版本；会影响网页通话和点对点传输。",
   "content_scripts": [

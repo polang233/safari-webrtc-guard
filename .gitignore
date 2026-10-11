@@ -1,6 +1,8 @@
 .DS_Store
 dist/
 build/
-native/
+**/xcuserdata/
+*.xcuserstate
+design/
 node_modules/
 *.profraw

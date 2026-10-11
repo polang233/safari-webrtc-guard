@@ -24,6 +24,12 @@
 
 TCPTest 在 STUN 结果全部为空时仍显示“HTTP / WebRTC”标签和“未检测到泄露”，因此验证同时检查了逐行结果和真实构造器错误。HTTP 出口仍可见，本测试未证明 VPN 分流已修复。
 
+## 项目名称更新验证（2026-10-11）
+
+通过 Xcode 的 Rename 流程把工程和目标改为 WebRTC Guard，并整理原生源码目录、App 显示名称、扩展清单与构建脚本。原生工程及共享 Scheme 纳入 Git，已有 Bundle Identifier 保留原值。
+
+改名后 9 项 Node 测试通过；WebRTC Guard macOS 容器与嵌入扩展构建成功；检查构建产物的显示名称和打包 ZIP 清单均为新名称。Logo 候选只保存于本地 design 目录，原有图标内容保持不变。
+
 ## 待完成
 
 - Safari 个人资料与无痕浏览验证。

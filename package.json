@@ -1,5 +1,5 @@
 {
-  "name": "safari-webrtc-guard",
+  "name": "webrtc-guard",
   "version": "0.1.0",
   "private": true,
   "description": "Experimental Safari extension that blocks page WebRTC connection creation",

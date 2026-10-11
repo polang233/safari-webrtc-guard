@@ -5,7 +5,7 @@
   // Run synchronously in the page's MAIN world before its scripts start.
   // Never retain or expose the native constructor or its prototype.
   function blockedPeerConnection() {
-    throw new DOMException("WebRTC connection blocked by Safari WebRTC Guard.", "SecurityError");
+    throw new DOMException("WebRTC connection blocked by WebRTC Guard.", "SecurityError");
   }
   Object.freeze(blockedPeerConnection.prototype);
   Object.freeze(blockedPeerConnection);
@@ -22,7 +22,7 @@
         enumerable: descriptor?.enumerable ?? true
       });
     } catch {
-      console.warn(`[Safari WebRTC Guard] Could not block ${name}; protection is incomplete.`);
+      console.warn(`[WebRTC Guard] Could not block ${name}; protection is incomplete.`);
     }
   }
 })();
