@@ -30,6 +30,12 @@ TCPTest 在 STUN 结果全部为空时仍显示“HTTP / WebRTC”标签和“�
 
 改名后 9 项 Node 测试通过；WebRTC Guard macOS 容器与嵌入扩展构建成功；检查构建产物的显示名称和打包 ZIP 清单均为新名称。Logo 候选只保存于本地 design 目录，原有图标内容保持不变。
 
+## Logo 接入验证（2026-10-11）
+
+采用用户选定的红底米白色网络锁盾 Logo，原始文件保存于 `assets/branding/logo-source.png`。已导出 1024px sRGB 图片、macOS AppIcon 的 10 个尺寸槽位、7 个彩色扩展图标及 16/32px 的透明工具栏图标。容器界面使用同一彩色图片。
+
+Node 测试通过；macOS 最终构建通过；ZIP 和嵌入扩展中的 9 个图标资源均与清单及源文件一致。已在 Safari 27.0.1 重新加载现有扩展，确认设置页显示彩色 Logo、工具栏显示清晰的单色轮廓；网站授权仍仅限 tcptest.cn。Xcode 的 AppIcon 各尺寸槽位已核对。
+
 ## 待完成
 
 - Safari 个人资料与无痕浏览验证。

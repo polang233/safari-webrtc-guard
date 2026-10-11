@@ -19,6 +19,7 @@
 		3E15619E307B9B05007E0349 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E15619D307B9B05007E0349 /* SafariWebExtensionHandler.swift */; };
 		3E1561AC307B9B05007E0349 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E1561AA307B9B05007E0349 /* manifest.json */; };
 		3E1561AD307B9B05007E0349 /* guard.js in Resources */ = {isa = PBXBuildFile; fileRef = 3E1561AB307B9B05007E0349 /* guard.js */; };
+		9F4A10000000000000000001 /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A10000000000000000002 /* icons */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		3E15619F307B9B05007E0349 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E1561AA307B9B05007E0349 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../../extension/manifest.json; sourceTree = "<group>"; };
 		3E1561AB307B9B05007E0349 /* guard.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = guard.js; path = ../../../extension/guard.js; sourceTree = "<group>"; };
+		9F4A10000000000000000002 /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../../extension/icons; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 			children = (
 				3E1561AA307B9B05007E0349 /* manifest.json */,
 				3E1561AB307B9B05007E0349 /* guard.js */,
+				9F4A10000000000000000002 /* icons */,
 			);
 			name = Resources;
 			path = "WebRTC Guard Extension";
@@ -229,6 +232,7 @@
 			files = (
 				3E1561AD307B9B05007E0349 /* guard.js in Resources */,
 				3E1561AC307B9B05007E0349 /* manifest.json in Resources */,
+				9F4A10000000000000000001 /* icons in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */

@@ -1,5 +1,7 @@
 # WebRTC Guard
 
+![WebRTC Guard Logo](assets/branding/logo-128.png)
+
 在获得网站访问权限的 Safari 网页中，阻止创建 WebRTC 连接，减少网页通过 ICE/STUN 获取地址的机会。
 
 **0.1.0 是实验版。** 已通过本机 WebKit 扩展运行时测试、macOS 容器构建，以及 Safari 27.0.1 中 TCPTest 的开启/关闭对比。网页语音、视频会议、远程桌面和点对点文件传输可能无法使用。它无法更改 HTTP 出口，也不能替代正确配置的 VPN。
@@ -50,6 +52,8 @@
 - 不能保证对抗所有主动绕过，包括从其他执行环境取得原生 API。第一版不会以“零泄露”或“保留 WebRTC 通话且隐藏真实 IP”的名义发布。
 
 ## 开发和检查
+
+Logo 母版位于 `assets/branding/logo-source.png`，工具栏透明轮廓母版位于 `assets/branding/toolbar-source.png`。在 macOS 上运行 `python3 scripts/generate-icons.py`，可统一导出 macOS AppIcon、容器界面图标和浏览器扩展图标。正式 1024px 图片位于 `assets/branding/logo.png`；Safari 工具栏采用透明轮廓版，App 和扩展设置采用彩色版。详见[图标资源说明](assets/branding/README.md)。
 
 没有第三方运行依赖：
 
