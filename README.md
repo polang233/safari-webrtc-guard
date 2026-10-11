@@ -37,7 +37,7 @@
 
 | 关闭扩展 | 开启扩展 |
 | --- | --- |
-| ![关闭扩展：STUN 取得地址，地址和位置已遮挡](docs/screenshots/tcptest-disabled.png) | ![开启扩展：STUN 未取得 IP](docs/screenshots/tcptest-enabled.png) |
+| ![关闭扩展：STUN 取得地址，地址和位置已遮挡](docs/screenshots/tcptest-disabled.jpg) | ![开启扩展：STUN 未取得 IP](docs/screenshots/tcptest-enabled.jpg) |
 
 该站在所有 STUN 行都为空时，顶部仍显示“HTTP / WebRTC”及“未检测到泄露”。此时应结合 STUN 行和控制台拦截错误判断；顶部显示的 HTTP 地址仍是网站正常请求可见的出口地址。
 

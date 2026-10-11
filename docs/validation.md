@@ -20,7 +20,7 @@
 
 另一次为截图进行的关闭状态复测中，芒果 TV、小米 WiFi 取得地址，Bilibili 未取得。STUN 可达性会变化，不应将单行空白当作扩展保护的证明。
 
-[关闭状态截图](screenshots/tcptest-disabled.png) · [开启状态截图](screenshots/tcptest-enabled.png)。截图前在网页显示层替换地址和地理位置为遮挡标记，检测结果文字保持原样。没有上传原始地址、位置或未遮挡截图。
+[关闭状态截图](screenshots/tcptest-disabled.jpg) · [开启状态截图](screenshots/tcptest-enabled.jpg)。截图前在网页显示层替换地址和地理位置为遮挡标记，检测结果文字保持原样。没有上传原始地址、位置或未遮挡截图。
 
 TCPTest 在 STUN 结果全部为空时仍显示“HTTP / WebRTC”标签和“未检测到泄露”，因此验证同时检查了逐行结果和真实构造器错误。HTTP 出口仍可见，本测试未证明 VPN 分流已修复。
 
