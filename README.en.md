@@ -21,6 +21,30 @@ Even with a VPN on, web pages can still learn your real IP address through WebRT
 
 Temporary extensions are removed when you quit Safari or after 24 hours, so you need to add them again. Private browsing and each Safari profile need to be enabled and allowed separately.
 
+### Why is it temporary only?
+
+This comes from how the extension is installed, not from the extension itself:
+
+- Safari only loads unsigned extensions as "temporary extensions", which are **removed when you quit Safari or after 24 hours**. You have to add the extension again and re-allow your sites each time.
+- To install once and keep it like a normal extension, it has to be signed by Apple (signed through the Apple Developer Program and distributed, or published on the App Store).
+- The maintainer does not currently have an Apple Developer Program account, so **no signed or App Store build is provided, and the extension can only be used as a temporary extension**.
+
+### Don't want to re-add it every day? Build it with Xcode (free, no paid account needed)
+
+According to Apple's documentation ([Running your Safari web extension](https://developer.apple.com/documentation/safariservices/running-your-safari-web-extension)), an extension installed by running the container app from Xcode is **not subject to the 24-hour limit**. You can do this without joining the Apple Developer Program. The trade-off is that the extension is unsigned, and Safari ignores unsigned extensions by default:
+
+1. Install Xcode and open `native/WebRTC Guard/WebRTC Guard.xcodeproj`.
+2. Choose **WebRTC Guard → My Mac** and run it (Product → Run).
+3. In Safari → Settings → Advanced, turn on **Show features for web developers**, then in Settings → Developer turn on **Allow unsigned extensions**.
+4. Turn on **WebRTC Guard** in Settings → Extensions, allow it for a site, then reload the page.
+
+Notes:
+
+- "Allow unsigned extensions" **resets every time you quit Safari**, so you have to turn it on again at the next launch. That is less work than temporary extensions, but it is not "install once and forget".
+- You can build without picking a Team: Xcode uses an ad-hoc signature (no developer identity), and Safari still treats it as an unsigned extension. If you pick a free account's Personal Team, Apple says its provisioning profiles expire after 7 days and you have to rebuild and reinstall.
+- Verified on the maintainer's Mac (Xcode 27.0): the build succeeds without a Team, the result is ad-hoc signed, and the system recognizes the embedded Safari extension (see [docs/validation.md](docs/validation.md)). How Safari behaves in steps 3 and 4 follows Apple's documentation and hasn't been checked step by step in this project.
+- If you have a paid developer account, you can pick your own Team for both targets so Apple signs the build, and you won't need "Allow unsigned extensions". See Apple's documentation for what each account type allows.
+
 ## Need calls on a site?
 
 Remove the extension's permission for that site in Safari (or turn the extension off for a while), then reload the page to get WebRTC back.

@@ -49,6 +49,14 @@ Node 测试通过；macOS 最终构建通过；ZIP 和嵌入扩展中的 9 个�
 
 macOS 27.0.1 的 WKWebView 中 `navigator.mediaDevices` 为 `undefined`，导致 `tests/probe.html` 在记录结果前抛错，`scripts/test-webkit.py` 报 `probe did not run`。探针改为检查 `MediaStream` 是否存在。同时把“同步访问新建 about:blank iframe 的 `contentWindow`”纳入断言：未加载、未授权时为 `created`，授权后为 `SecurityError`。三种情况均通过；9 项 Node 测试通过；Xcode 构建 WebRTC Guard 容器成功且无警告。
 
+## Xcode 免费构建路线验证（2026-10-12）
+
+Xcode 27.0，不指定 Team，执行 `xcodebuild -scheme 'WebRTC Guard' -configuration Debug -destination 'platform=macOS' build`（与在 Xcode 中点击运行等价），构建成功。
+
+- App 与嵌入扩展均为 ad-hoc 签名（`Signature=adhoc`，`TeamIdentifier=not set`），`codesign --verify --deep --strict` 通过。
+- 扩展资源（`manifest.json`、`guard.js`、`icons`）已嵌入；`pluginkit` 能列出 `io.github.polang233.Safari-WebRTC-Guard.Extension`，SDK 为 `com.apple.Safari.web-extension`。
+- 未验证：Safari 中“允许未签名的扩展”勾选后扩展出现在列表、启用并授权网站后拦截生效，以及退出重启 Safari 后的行为。该设置属于 Safari 安全设置，需要使用者自行勾选。
+
 ## 工程备注
 
 - 现有 Bundle Identifier 保留原值，以维持安装身份；GitHub 仓库仍叫 `safari-webrtc-guard`。
