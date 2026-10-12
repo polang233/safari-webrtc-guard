@@ -1,6 +1,6 @@
 # WebRTC Guard 图标资源
 
-- `logo-source.png`：用户选定的原始 Logo，1254×1254，保留原始文件内容。
+- `logo-source.png`：用户选定的原始 Logo，1254×1254，像素内容保持不变，已移除文件中嵌入的内容来源元数据。
 - `logo.png`：1024×1024 的 sRGB 彩色图片，用于 App 图标及容器界面。
 - `logo-128.png`：README 使用的预览图。
 - `toolbar-source.png`：内置 imagegen 根据原图制作的透明底单色轮廓，仅用于浏览器工具栏。
