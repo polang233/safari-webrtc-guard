@@ -2,6 +2,15 @@
 
 2026-10-11，本机 Safari 27.0.1、已安装的系统 WebKit 和 Xcode SDK。
 
+## 手动对比方法
+
+1. 保持相同的 VPN/TUN 状态和规则，关闭扩展，打开 [TCPTest WebRTC 检测](https://www.tcptest.cn/webrtc)，私下记录 HTTP 地址及各 STUN 行结果。
+2. 启用扩展、授权该网站，重新加载并检测。预期所有 STUN 行无法取得地址；不同检测站文案不同。
+3. 确认 HTTP 地址仍然可见。HTTP 与 WebRTC 地址相同只说明两者出口一致；如果 HTTP 已是原始地址，要另查分流规则、TUN 路由、IPv6 和 UDP。
+4. 用 [BrowserLeaks WebRTC](https://browserleaks.com/webrtc) 交叉核对。没有候选地址也可能是 STUN 不可达，不能单凭空白结果判定保护成功。
+5. 控制台执行 `new RTCPeerConnection()`，应得到扩展的 `SecurityError`。
+6. 关闭扩展并重新加载，验证 WebRTC 功能恢复。分享反馈前隐藏 IP、位置、代理节点和浏览记录。
+
 ## 已完成
 
 - Node 自动测试：9 项通过。验证标准与旧名称的连接创建、属性覆盖、prototype 构造器路径、重复注入、独立执行环境、未提供 WebRTC 的环境、不可替换属性告警及已有引用的限制。
@@ -35,6 +44,15 @@ TCPTest 在 STUN 结果全部为空时仍显示“HTTP / WebRTC”标签和“�
 采用用户选定的红底米白色网络锁盾 Logo，原始文件保存于 `assets/branding/logo-source.png`。已导出 1024px sRGB 图片、macOS AppIcon 的 10 个尺寸槽位、7 个彩色扩展图标及 16/32px 的透明工具栏图标。容器界面使用同一彩色图片。
 
 Node 测试通过；macOS 最终构建通过；ZIP 和嵌入扩展中的 9 个图标资源均与清单及源文件一致。已在 Safari 27.0.1 重新加载现有扩展，确认设置页显示彩色 Logo、工具栏显示清晰的单色轮廓；网站授权仍仅限 tcptest.cn。Xcode 的 AppIcon 各尺寸槽位已核对。
+
+## WebKit 测试修复（2026-10-12）
+
+macOS 27.0.1 的 WKWebView 中 `navigator.mediaDevices` 为 `undefined`，导致 `tests/probe.html` 在记录结果前抛错，`scripts/test-webkit.py` 报 `probe did not run`。探针改为检查 `MediaStream` 是否存在。同时把“同步访问新建 about:blank iframe 的 `contentWindow`”纳入断言：未加载、未授权时为 `created`，授权后为 `SecurityError`。三种情况均通过；9 项 Node 测试通过；Xcode 构建 WebRTC Guard 容器成功且无警告。
+
+## 工程备注
+
+- 现有 Bundle Identifier 保留原值，以维持安装身份；GitHub 仓库仍叫 `safari-webrtc-guard`。
+- 首次生成工程时，Xcode 打包工具对 `world`、`match_about_blank`、`match_origin_as_fallback` 发出兼容性警告；本机 WebKit 运行时已验证这些场景，其他版本须实测。
 
 ## 待完成
 

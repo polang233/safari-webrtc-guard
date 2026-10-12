@@ -1,8 +1,8 @@
 {
   "name": "webrtc-guard",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
-  "description": "Experimental Safari extension that blocks page WebRTC connection creation",
+  "description": "Safari extension that blocks page WebRTC connection creation",
   "license": "MIT",
   "scripts": {
     "test": "node --test tests/guard.test.mjs",

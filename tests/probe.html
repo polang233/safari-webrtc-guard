@@ -6,7 +6,7 @@
     try { const pc = new realm.RTCPeerConnection({ iceServers: [] }); pc.close(); return "created"; }
     catch (error) { return error.name; }
   }
-  window.probeResults = { top: check(window), capture: typeof navigator.mediaDevices.getUserMedia };
+  window.probeResults = { top: check(window), capture: typeof MediaStream };
   const blank = document.createElement("iframe");
   document.documentElement.append(blank);
   // Deliberately checks a fresh synchronous realm before content-script delivery.

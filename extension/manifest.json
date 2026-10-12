@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "WebRTC Guard",
-  "version": "0.1.0",
-  "description": "阻止已授权网页创建 WebRTC 连接。实验版本；会影响网页通话和点对点传输。",
+  "version": "1.0.0",
+  "description": "阻止网页通过 WebRTC 获取你的真实 IP（VPN 用户适用）。仅在你授权的网站生效；会停用这些网站的网页通话。",
   "icons": {
     "16": "icons/icon-16.png",
     "32": "icons/icon-32.png",

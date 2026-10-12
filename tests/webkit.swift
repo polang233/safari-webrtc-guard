@@ -46,9 +46,9 @@ final class Probe: NSObject, WKNavigationDelegate, WKWebExtensionTab {
             }
             print(text)
             let expected = self.enabled && self.granted ? "SecurityError" : "created"
-            guard results["top"] == expected, results["srcdoc"] == expected,
+            guard results["top"] == expected, results["synchronousBlank"] == expected, results["srcdoc"] == expected,
                   results["httpFrame"] == expected, results["capture"] == "function" else {
-                print("FAIL: expected top and loaded frames = \(expected)"); exit(1)
+                print("FAIL: expected top, synchronous about:blank and loaded frames = \(expected)"); exit(1)
             }
             print("PASS: \(self.enabled ? (self.granted ? "extension" : "permission denied") : "baseline") — actual WebKit extension runtime")
             exit(0)
