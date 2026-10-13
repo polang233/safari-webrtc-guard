@@ -6,3 +6,5 @@ build/
 design/
 node_modules/
 *.profraw
+output/
+.playwright-cli/

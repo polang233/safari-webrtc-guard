@@ -1,5 +1,7 @@
 # WebRTC Guard 图标资源
 
+- `store/`：Chrome 128px 透明边距图标、Edge 300px Logo 和共用 440×280 宣传图。运行 `node scripts/store-assets.mjs` 可用 Playwright 从 `store-preview.html` 重新导出。
+
 - `logo-source.png`：用户选定的原始 Logo，1254×1254，像素内容保持不变，已移除文件中嵌入的内容来源元数据。
 - `logo.png`：1024×1024 的 sRGB 彩色图片，用于 App 图标及容器界面。
 - `logo-128.png`：README 使用的预览图。

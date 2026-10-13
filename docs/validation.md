@@ -1,5 +1,29 @@
 # 验证记录
 
+## Chrome / Edge 兼容验证（2026-10-13）
+
+1.1.0 增加 Chrome / Edge 共用 Manifest V3 包。拦截脚本与 Safari 逐字节一致；使用彩色工具栏图标、英文与简体中文元数据，并设置 Chromium 最低版本 119。没有新增后台脚本、存储、网络请求或扩展 API 权限。
+
+本机 macOS 上，Chrome for Testing 155.0.8059.39 与 Microsoft Edge 155.0.4283.45 使用隔离临时配置加载实际 ZIP 中的扩展。检测页面只访问回环地址，不使用 STUN 服务器，也不显示候选地址。
+
+| 检查 | 未加载 | 扩展已加载 | 移除扩展并重新加载 |
+| --- | --- | --- | --- |
+| 顶部页面 / prototype 构造器 | `created` | `SecurityError` | `created` |
+| 新建 about:blank 同步访问及加载后访问 | `created` | `SecurityError` | `created` |
+| srcdoc / 同源 HTTP / 跨源 HTTP iframe | `created` | `SecurityError` | `created` |
+| 无 STUN 的 ICE 收集 | 完成，2 个候选 | `SecurityError`，未开始收集 | 完成，2 个候选 |
+| `MediaStream` API | `function` | `function` | `function` |
+
+两个浏览器在严格 CSP 页面中的构造器也均抛出 `SecurityError`。本次 about:blank 同步测试通过，仅说明该版本和本次路径已拦截，不代表所有新执行环境都无法绕过。
+
+- [Chrome 原始结果](screenshots/chrome-results.json) · [关闭](screenshots/chrome-disabled.png) · [开启](screenshots/chrome-enabled.png)
+- [Edge 原始结果](screenshots/edge-results.json) · [关闭](screenshots/edge-disabled.png) · [开启](screenshots/edge-enabled.png)
+- 9 项 Node 单元测试、2 项实际 ZIP 检查通过。两类 ZIP 的资源、版本、图标、语言文件和脚本一致性均已验证。
+- Safari 1.1.0 原生容器构建成功。本次 WKWebExtension 重跑因沙箱系统服务访问受限而超时；原有运行时验证见后文，当前拦截脚本保持原样。
+- `scripts/test-chromium.mjs` 可复现上述浏览器检查，结束后关闭浏览器并删除临时配置。GitHub Actions 执行相同的真实 Chromium 扩展测试并归档截图，运行结果见仓库 Actions。
+
+最低版本是兼容性声明，旧版本、其他操作系统、InPrivate／无痕、网站权限撤销与浏览器重启仍需分别实测。Chrome Web Store / Edge Add-ons 尚未提交。
+
 2026-10-11，本机 Safari 27.0.1、已安装的系统 WebKit 和 Xcode SDK。
 
 ## 手动对比方法

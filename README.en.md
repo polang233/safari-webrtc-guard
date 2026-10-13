@@ -1,85 +1,98 @@
 # WebRTC Guard
 
-![WebRTC Guard Logo](assets/branding/logo-128.png)
+<img src="assets/branding/logo-128.png" width="80" alt="WebRTC Guard logo">
 
 [简体中文](README.md) · English
 
-Even with a VPN on, web pages can still learn your real IP address through WebRTC (ICE/STUN). WebRTC Guard stops pages from creating WebRTC connections on the Safari sites you allow, so this leak can't happen there.
+[![Tests](https://github.com/polang233/safari-webrtc-guard/actions/workflows/test.yml/badge.svg)](https://github.com/polang233/safari-webrtc-guard/actions/workflows/test.yml)
+[![MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+![Manifest V3](https://img.shields.io/badge/Manifest-V3-5865F2)
+![No tracking](https://img.shields.io/badge/privacy-no%20tracking%20·%20no%20storage-357a55)
 
-- **Only on sites you allow**: Safari's website permissions are the on/off switch, so there's no separate allowlist to manage.
-- **Lightweight**: a single ~30-line script with no background page, analytics, network requests or storage. See the [privacy notes](PRIVACY.md) (Chinese).
-- **Trade-off**: voice/video calls, remote desktop and peer-to-peer transfers in the browser stop working on allowed sites.
+A lightweight WebRTC blocker. It prevents pages from creating WebRTC connections on sites you allow, reducing IP exposure through ICE/STUN.
 
-> Requires Safari 18.4 or later on macOS.
+One ~30-line script, with no background process, network requests or third-party runtime dependencies. Use the browser's site-access controls to choose where it runs. **Web calls, remote desktop and peer-to-peer transfers also stop working on those sites.**
 
-## Install (no developer account needed)
+## Browser support
 
-1. Download `webrtc-guard-1.0.0.zip` from [Releases](https://github.com/polang233/safari-webrtc-guard/releases/latest).
-2. Safari → Settings → Advanced → turn on **Show features for web developers**.
-3. Settings → Developer → **Add Temporary Extension…**, choose the downloaded ZIP, and allow unsigned extensions when macOS asks.
-4. Turn on **WebRTC Guard** in Settings → Extensions, allow it for a site (or all sites) from the toolbar, then **reload the page**.
+| <img src="docs/browsers/safari.png" width="32" alt="Safari"> Safari | <img src="docs/browsers/chrome.svg" width="32" alt="Chrome"> Chrome | <img src="docs/browsers/edge.png" width="32" alt="Edge"> Microsoft Edge |
+| :---: | :---: | :---: |
+| macOS · Safari 18.4+ | Desktop · Chromium 119+ | Desktop · Chromium 119+ |
+| Temporary extension / Xcode app | Developer mode | Developer mode |
 
-Temporary extensions are removed when you quit Safari or after 24 hours, so you need to add them again. Private browsing and each Safari profile need to be enabled and allowed separately.
+Chrome Web Store and Microsoft Edge Add-ons listings are being prepared. Build from source for now; published Safari ZIPs are available in [Releases](https://github.com/polang233/safari-webrtc-guard/releases). Minimum versions reflect manifest requirements; see [validation notes](docs/validation.md) for versions actually tested.
 
-### Why is it temporary only?
+## Install
 
-This comes from how the extension is installed, not from the extension itself:
+### Chrome / Edge
 
-- Safari only loads unsigned extensions as "temporary extensions", which are **removed when you quit Safari or after 24 hours**. You have to add the extension again and re-allow your sites each time.
-- To install once and keep it like a normal extension, it has to be signed by Apple (signed through the Apple Developer Program and distributed, or published on the App Store).
-- The maintainer does not currently have an Apple Developer Program account, so **no signed or App Store build is provided, and the extension can only be used as a temporary extension**.
+1. Download or clone the source and run `python3 scripts/package.py`. This only needs Python 3. With Node.js installed, you can also use `npm run package`; no dependency installation is needed.
+2. Open `chrome://extensions` in Chrome or `edge://extensions` in Edge and turn on **Developer mode**.
+3. Click **Load unpacked** and select the generated `dist/chromium` folder. Alternatively, extract `dist/webrtc-guard-chromium-1.1.0.zip` and select the folder containing `manifest.json`.
+4. Choose allowed sites under **Site access** in the extension's details, then **reload the page**.
 
-### Don't want to re-add it every day? Build it with Xcode (free, no paid account needed)
+With access to all sites, the extension automatically blocks WebRTC on regular HTTP/HTTPS pages. To use calls on a site, remove that site's permission or disable the extension, then reload. Allow incognito / InPrivate separately in extension details.
 
-According to Apple's documentation ([Running your Safari web extension](https://developer.apple.com/documentation/safariservices/running-your-safari-web-extension)), an extension installed by running the container app from Xcode is **not subject to the 24-hour limit**. You can do this without joining the Apple Developer Program. The trade-off is that the extension is unsigned, and Safari ignores unsigned extensions by default:
+### Safari
 
-1. Install Xcode and open `native/WebRTC Guard/WebRTC Guard.xcodeproj`.
-2. Choose **WebRTC Guard → My Mac** and run it (Product → Run).
-3. In Safari → Settings → Advanced, turn on **Show features for web developers**, then in Settings → Developer turn on **Allow unsigned extensions**.
-4. Turn on **WebRTC Guard** in Settings → Extensions, allow it for a site, then reload the page.
+1. Download a Safari release ZIP, or run `npm run package` to create `dist/webrtc-guard-1.1.0.zip`.
+2. Safari → Settings → Advanced → enable **Show features for web developers**.
+3. Settings → Developer → **Add Temporary Extension…**, select the ZIP and allow unsigned extensions when prompted.
+4. Enable **WebRTC Guard**, allow it on your sites and **reload the page**.
 
-Notes:
+Temporary extensions are removed when you quit Safari or after 24 hours. Add and allow them again. Each profile and private browsing need separate permissions.
 
-- "Allow unsigned extensions" **resets every time you quit Safari**, so you have to turn it on again at the next launch. That is less work than temporary extensions, but it is not "install once and forget".
-- You can build without picking a Team: Xcode uses an ad-hoc signature (no developer identity), and Safari still treats it as an unsigned extension. If you pick a free account's Personal Team, Apple says its provisioning profiles expire after 7 days and you have to rebuild and reinstall.
-- Verified on the maintainer's Mac (Xcode 27.0): the build succeeds without a Team, the result is ad-hoc signed, and the system recognizes the embedded Safari extension (see [docs/validation.md](docs/validation.md)). How Safari behaves in steps 3 and 4 follows Apple's documentation and hasn't been checked step by step in this project.
-- If you have a paid developer account, you can pick your own Team for both targets so Apple signs the build, and you won't need "Allow unsigned extensions". See Apple's documentation for what each account type allows.
+<details>
+<summary>Safari: build with Xcode</summary>
 
-## Need calls on a site?
+Open `native/WebRTC Guard/WebRTC Guard.xcodeproj`, choose **WebRTC Guard → My Mac**, and run. In Safari's developer settings, enable **Allow unsigned extensions**, then enable the extension and grant site access.
 
-Remove the extension's permission for that site in Safari (or turn the extension off for a while), then reload the page to get WebRTC back.
+[Apple's guide](https://developer.apple.com/documentation/safariservices/running-your-safari-web-extension) says extensions installed by running an Xcode container are not subject to the temporary ZIP's 24-hour limit. However, **Allow unsigned extensions** resets when Safari quits. The ad-hoc build without a Team and system recognition have been verified; the complete Safari enablement, blocking and restart flow for this route remains untested. Signed distribution requires the appropriate Apple developer account.
 
-## Check that it works
+</details>
 
-After allowing the site and reloading, run this in the page's developer console:
+## Actual results
 
-```js
-new RTCPeerConnection()
-```
+These screenshots show the packaged extension running in Chrome for Testing 155.0.8059.39 and Microsoft Edge 155.0.4283.45. The local probe does not look up a public IP. The Safari TCPTest images redact addresses and location, while keeping detection results intact.
 
-If you get `SecurityError: WebRTC connection blocked by WebRTC Guard.`, the page is protected. You can also compare results with the extension on and off at [BrowserLeaks](https://browserleaks.com/webrtc).
+| Chrome · disabled | Chrome · enabled |
+| --- | --- |
+| ![Chrome disabled: native connections available](docs/screenshots/chrome-disabled.png) | ![Chrome enabled: SecurityError blocks connection creation](docs/screenshots/chrome-enabled.png) |
 
-## Limits
+| Edge · disabled | Edge · enabled |
+| --- | --- |
+| ![Edge disabled: native connections available](docs/screenshots/edge-disabled.png) | ![Edge enabled: SecurityError blocks connection creation](docs/screenshots/edge-enabled.png) |
 
-- Protection works in the page's JavaScript. It doesn't turn off Safari's WebRTC engine or system UDP. Sites you haven't allowed, and pages opened before you allowed them, aren't protected.
-- It only blocks WebRTC. It doesn't change the HTTP address websites see, and it doesn't replace a correctly configured VPN.
-- It can't promise to stop every deliberate workaround.
+<details>
+<summary>Safari · TCPTest comparison</summary>
 
-## Development
+| Disabled | Enabled |
+| --- | --- |
+| ![Safari disabled: STUN returns addresses, addresses and location redacted](docs/screenshots/tcptest-disabled.jpg) | ![Safari enabled: STUN cannot obtain IP](docs/screenshots/tcptest-enabled.jpg) |
+
+</details>
+
+After enabling and reloading, run `new RTCPeerConnection()` in the page console. Expect `SecurityError: WebRTC connection blocked by WebRTC Guard.` Compare enabled and disabled states at [BrowserLeaks](https://browserleaks.com/webrtc) or [TCPTest](https://www.tcptest.cn/webrtc). Empty STUN results alone do not prove the extension works.
+
+## Protection scope
+
+This is protection in page JavaScript. It does not disable the browser's WebRTC engine or system UDP. Unpermitted sites, browser internal pages, existing connections and native references saved before injection are outside its guarantee. Synchronous access to fresh iframe realms and other bypass paths need to be evaluated against the [validation notes](docs/validation.md). It cannot guarantee protection against every deliberate workaround.
+
+It does not change the HTTP address websites normally see or replace a correctly configured VPN. See the [privacy policy](PRIVACY.md).
+
+## Develop and package
 
 ```sh
-npm test                        # Node unit tests, no third-party dependencies
-python3 scripts/test-webkit.py  # real WKWebExtension runtime test (macOS 15.4+, Xcode)
-npm run package                 # package into dist/
-sh scripts/build-macos.sh       # build the unsigned macOS container app
+npm test                         # dependency-free Node unit tests
+npm run package                  # Safari ZIP + Chrome/Edge ZIP and unpacked folder
+npm ci                           # development-only Playwright
+npx playwright install chromium  # test browser
+npm run test:browsers             # real Chromium extension loading, blocking and restoration
+npm run test:browsers -- --edge    # installed Microsoft Edge
+python3 scripts/test-webkit.py    # real WKWebExtension tests on macOS
+sh scripts/build-macos.sh        # Safari container build
 ```
 
-- `extension/`: the extension itself (`manifest.json` + `guard.js`). The Xcode project references this folder directly.
-- `native/WebRTC Guard/`: Xcode project for the macOS container app. Build and run with **WebRTC Guard → My Mac**.
-- Icons: run `python3 scripts/generate-icons.py` to export every size. See the [branding notes](assets/branding/README.md).
-
-Publishing to the App Store requires Apple Developer Program signing and review. See Apple's guides on [packaging](https://developer.apple.com/documentation/safariservices/packaging-a-web-extension-for-safari) and [distribution](https://developer.apple.com/documentation/safariservices/distributing-your-safari-web-extension).
-
-## License
+All three browsers use `extension/guard.js`. Safari references `extension/` directly. The package script generates Chrome / Edge metadata in English and Simplified Chinese. Test screenshots and results go to `output/playwright/`. See [store publishing materials](docs/store-listing.md) for submission files and listing copy.
 
 [MIT](LICENSE)
