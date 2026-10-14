@@ -1,12 +1,18 @@
 {
   "name": "webrtc-guard",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "Safari extension that blocks page WebRTC connection creation",
+  "description": "Lightweight WebRTC connection blocker for Safari, Chrome and Edge",
   "license": "MIT",
   "scripts": {
     "test": "node --test tests/guard.test.mjs",
-    "package": "python3 scripts/package.py"
+    "package": "python3 scripts/package.py",
+    "test:browsers": "npm run package && node scripts/test-chromium.mjs"
   },
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "playwright": "1.64.0"
+  }
 }

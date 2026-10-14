@@ -1,0 +1,42 @@
+{
+  "browser": "chrome",
+  "version": "155.0.8059.39",
+  "extensionVersion": "1.1.0",
+  "packageSHA256": "9e7ede52413d47a66e3c62f4bb864813548dc5936b42604bdc534e94b54c4ba5",
+  "scenarios": {
+    "disabled": {
+      "top": "created",
+      "prototype": "created",
+      "capture": "function",
+      "blank": "created",
+      "synchronousBlank": "created",
+      "crossOrigin": "created",
+      "srcdoc": "created",
+      "httpFrame": "created",
+      "ice": "completed · 2 candidate(s)"
+    },
+    "enabled": {
+      "top": "SecurityError",
+      "prototype": "SecurityError",
+      "capture": "function",
+      "blank": "SecurityError",
+      "synchronousBlank": "SecurityError",
+      "ice": "SecurityError",
+      "srcdoc": "SecurityError",
+      "httpFrame": "SecurityError",
+      "crossOrigin": "SecurityError"
+    },
+    "strictCSP": "SecurityError",
+    "restored": {
+      "top": "created",
+      "prototype": "created",
+      "capture": "function",
+      "blank": "created",
+      "synchronousBlank": "created",
+      "srcdoc": "created",
+      "httpFrame": "created",
+      "crossOrigin": "created",
+      "ice": "completed · 2 candidate(s)"
+    }
+  }
+}

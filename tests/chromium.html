@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WebRTC Guard · browser verification</title>
+<link rel="stylesheet" href="chromium.css">
+<script src="chromium.js" defer></script>
+<main>
+  <header><img src="/logo.png" width="56" height="56" alt=""><div>WebRTC Guard<span>Browser verification</span></div></header>
+  <p id="browser">Detecting browser…</p>
+  <h1 id="headline">Checking WebRTC connections…</h1>
+  <p class="intro">Live results from this browser. No STUN server or public IP lookup is used.</p>
+  <table><thead><tr><th>Connection entry point</th><th>Actual result</th></tr></thead><tbody id="results"></tbody></table>
+  <p class="note" id="note"></p>
+  <footer><span>Same extension script across Safari, Chrome and Edge</span><span>No background process · No tracking</span></footer>
+</main>
+</html>

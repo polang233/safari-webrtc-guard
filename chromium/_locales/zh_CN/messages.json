@@ -1,0 +1,4 @@
+{
+  "extensionName": { "message": "WebRTC Guard" },
+  "extensionDescription": { "message": "阻止网页通过 WebRTC 获取 IP 地址。仅在你授权的网站生效，轻量、无统计；会停用这些网站的网页通话。" }
+}

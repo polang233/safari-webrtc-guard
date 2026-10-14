@@ -1,0 +1,4 @@
+{
+  "extensionName": { "message": "WebRTC Guard" },
+  "extensionDescription": { "message": "Block WebRTC connections on sites you allow to prevent IP leaks. Lightweight, with no tracking. Disables web calls on those sites." }
+}
